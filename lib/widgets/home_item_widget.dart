@@ -4,12 +4,18 @@ import 'package:youtubecloneonedaybuild/constants/common_size.dart';
 import 'package:youtubecloneonedaybuild/constants/size.dart';
 
 class HomeItemWidget extends StatelessWidget {
+  final int index;
+
+  const HomeItemWidget(
+    this.index, {
+    Key key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         CachedNetworkImage(
-          imageUrl: 'https://picsum.photos/192/108',
+          imageUrl: 'https://picsum.photos/id/$index/192/108',
           fit: BoxFit.fitWidth,
           width: size.width,
           height: size.width * 108 / 192,
@@ -28,7 +34,7 @@ class HomeItemWidget extends StatelessWidget {
               ClipOval(
                 child: CachedNetworkImage(
                   imageUrl:
-                      'https://api.adorable.io/avatars/30/abott@adorable.png',
+                      'https://randomuser.me/api/portraits/women/$index.jpg',
                   width: 40,
                   height: 40,
                 ),

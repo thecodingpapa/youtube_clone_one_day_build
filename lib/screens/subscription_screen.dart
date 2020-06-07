@@ -19,7 +19,7 @@ class SubscriptionScreen extends StatelessWidget {
           color: Colors.white54,
         ),
         buildTags()
-      ]..addAll(List.generate(30, (index) => HomeItemWidget()))),
+      ]..addAll(List.generate(30, (index) => HomeItemWidget(index)))),
     );
   }
 

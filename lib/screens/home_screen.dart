@@ -6,7 +6,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate((context, index) {
-        return HomeItemWidget();
+        return HomeItemWidget(index);
       }, childCount: 30),
     );
   }
