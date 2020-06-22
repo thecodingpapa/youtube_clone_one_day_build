@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:youtubecloneonedaybuild/constants/common_size.dart';
 import 'package:youtubecloneonedaybuild/constants/size.dart';
+import 'package:youtubecloneonedaybuild/data/bool_change_notifier.dart';
+import 'package:youtubecloneonedaybuild/screens/detail_screen.dart';
 import 'package:youtubecloneonedaybuild/screens/home_screen.dart';
 import 'package:youtubecloneonedaybuild/screens/subscription_screen.dart';
 
@@ -78,60 +81,74 @@ class _HomePageState extends State<HomePage> {
       size = MediaQuery.of(context).size;
     }
     return Scaffold(
-//      appBar: _buildAppBar(),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            floating: true,
-            leading: Padding(
-              padding: const EdgeInsets.only(
-                top: common_xxxs_gap,
-                bottom: common_xxxs_gap,
-                left: common_gap,
-              ),
-              child: Image.asset(
-                'assets/youtube.png',
-              ),
-            ),
-            titleSpacing: common_xxxs_gap,
-            title: Text(
-              'Premium',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            actions: <Widget>[
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.videocam,
-                  color: Colors.white,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-              ),
-              InkWell(
-                onTap: () {},
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 13),
-                  child: ClipOval(
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          'https://api.adorable.io/avatars/30/abott@adorable.png',
-                      width: avatar_size,
-                      height: avatar_size,
-                    ),
+      body: Stack(
+        children: <Widget>[
+          CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                floating: true,
+                leading: Padding(
+                  padding: const EdgeInsets.only(
+                    top: common_xxxs_gap,
+                    bottom: common_xxxs_gap,
+                    left: common_gap,
+                  ),
+                  child: Image.asset(
+                    'assets/youtube.png',
                   ),
                 ),
-              )
+                titleSpacing: common_xxxs_gap,
+                title: Text(
+                  'Premium',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                actions: <Widget>[
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.videocam,
+                      color: Colors.white,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 13),
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://api.adorable.io/avatars/30/abott@adorable.png',
+                          width: avatar_size,
+                          height: avatar_size,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              _screens[_selectedIndex]
             ],
           ),
-          _screens[_selectedIndex]
+          Consumer<BoolNotifier>(
+            builder: (BuildContext context, BoolNotifier boolNotifier,
+                Widget child) {
+              return AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                child: DetailScreen(),
+                transform: Matrix4.translationValues(
+                    0, boolNotifier.value ? 0 : size.height, 0),
+              );
+            },
+          )
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -142,58 +159,6 @@ class _HomePageState extends State<HomePage> {
         currentIndex: _selectedIndex,
         onTap: _onBtmItemClick,
       ),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      leading: Padding(
-        padding: const EdgeInsets.only(
-          top: common_xxxs_gap,
-          bottom: common_xxxs_gap,
-          left: common_gap,
-        ),
-        child: Image.asset(
-          'assets/youtube.png',
-        ),
-      ),
-      titleSpacing: common_xxxs_gap,
-      title: Text(
-        'Premium',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      actions: <Widget>[
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.videocam,
-            color: Colors.white,
-          ),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.search,
-            color: Colors.white,
-          ),
-        ),
-        InkWell(
-          onTap: () {},
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 13),
-            child: ClipOval(
-              child: CachedNetworkImage(
-                imageUrl:
-                    'https://api.adorable.io/avatars/30/abott@adorable.png',
-                width: avatar_size,
-                height: avatar_size,
-              ),
-            ),
-          ),
-        )
-      ],
     );
   }
 

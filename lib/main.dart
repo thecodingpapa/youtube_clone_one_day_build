@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:youtubecloneonedaybuild/data/bool_change_notifier.dart';
 import 'package:youtubecloneonedaybuild/home_page.dart';
 
 void main() {
@@ -17,7 +19,11 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: HomePage(),
+      home: ChangeNotifierProvider(
+          create: (BuildContext context) {
+            return BoolNotifier();
+          },
+          child: HomePage()),
     );
   }
 }
